@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Abhijeet Maurya | Blog Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    h1 {
+      color: #005a9c;
+      margin: 20px 0;
+    }
+
+    img {
+      display: block;
+      margin: 10px auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    button {
+      padding: 10px 15px;
+      margin: 10px 5px;
+      background-color: #0078D7;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+
+    .section {
+      margin: 20px 0;
+      padding: 10px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+      width: 80%;
+      max-width: 800px;
+    }
+
+    .toggle-content {
+      display: none;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 70%;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin: 10px 0;
+    }
+
+    #movieResult img {
+      width: 150px;
+      margin: 10px 0;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Welcome to my Blog Page!</h1>
+  <img src="picture.jpg.jpeg" alt="Rohan Belsare" width="100" height="120">
+
+  <p>
+    Hi, My name is Abhijeet Maurya and I'm currently pursuing a BTech degree from WIT Solapur.
+    I am a passionate learner and a tech enthusiast.
+    <span id="dots">...</span>
+    <span id="more" style="display: none;">
+      I love to learn and explore new technologies. I am a Bachelor's student in Electronics and Computer Engineering,
+      specializing in C and Python. I enjoy building projects and staying updated with tech trends.
+    </span>
+  </p>
+  <button onclick="toggleReadMore()" id="myBtn">Read more</button>
+
+  <!-- Movie Search Section -->
+  <div class="section">
+    <input type="text" id="movieInput" placeholder="Enter movie name">
+    <button onclick="getMovie()">Search Movie Info</button>
+    <div id="movieResult">Movie info will appear here...</div>
+  </div>
+
+  <!-- Academic Skills and Projects -->
+  <div class="section">
+    <button onclick="toggleSection('skillsInfo')">Show Academic Skills</button>
+    <p id="skillsInfo" class="toggle-content">
+      • C, Python, HTML, CSS, JavaScript<br>
+      • Embedded Systems, IoT, Data Structures<br>
+      • Problem Solving, Debugging, Version Control (Git)
+    </p>
+    <button onclick="toggleSection('projectsInfo')">Show Projects</button>
+    <p id="projectsInfo" class="toggle-content">
+      • Movie App using OMDB API<br>
+      • Attendance Tracker using Firebase<br>
+      • IoT-based Smart Light Control<br>
+      • Blog Page with Movie Search
+    </p>
+  </div>
+
+  <!-- Learned Subjects -->
+  <div class="section">
+    <button onclick="toggleSection('subjectsInfo')">Show Learned Subjects</button>
+    <p id="subjectsInfo" class="toggle-content">
+      • Digital Communication<br>
+      • Microcontroller<br>
+      • Computer Networks<br>
+      • Data Structures<br>
+      • Open - Elective (Cyber laws)<br>
+      • Information and System Management<br>
+      • MDM-II (UI/UX)
+    </p>
+  </div>
+
+  <!-- GitHub Link -->
+  <div class="section">
+    <button onclick="toggleSection('programInfo')">Show My Whole Program</button>
+    <p id="programInfo" class="toggle-content">
+      <a href="https://github.com/ROAHN-B/EndSemBlogPage/blob/main/index.html" target="_blank">
+        <button>Visit My GitHub</button>
+      </a>
+    </p>
+  </div>
+
+  <!-- Submission Form -->
+  <div class="section">
+    <button onclick="toggleSection('submissionForm')">Submit Your Details</button>
+    <div id="submissionForm" class="toggle-content">
+      <form action="submit_details.html" method="POST">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" value="Abhijeet Maurya" readonly><br>
+        <label for="rollNo">Roll Number:</label><br>
+        <input type="text" id="rollNo" name="rollNo" value="41 and 66" readonly><br>
+      </form>
+    </div>
+  </div>
+
+  <!-- Certificates -->
+  <div class="section">
+    <button onclick="toggleSection('certificatesImages')">Show Certificates</button>
+    <div id="certificatesImages" class="toggle-content">
+      <img src="cert1.jpg" alt="Introduction to cyber security" width="300">
+      <img src="cert2.jpg" alt="SQL Basics to expert" width="300">
+      <img src="cert3.jpg" alt="Basics of python" width="300">
+    </div>
+  </div>
+
+  <!-- Semester Performance Table -->
+  <table id="mytable">
+    <tr>
+      <th>Semester</th>
+      <th>Percentage</th>
+      <th>CGPA</th>
+    </tr>
+    <tr>
+      <td>First</td>
+      <td>85.85%</td>
+      <td>9.58</td>
+    </tr>
+    <tr>
+      <td>Second</td>
+      <td>88.70%</td>
+      <td>9.91</td>
+    </tr>
+    <tr>
+      <td>Third</td>
+      <td>89.71%</td>
+      <td>9.73</td>
+    </tr>
+  </table>
+  <button onclick="toggleTable(this)">Hide table</button>
+
+  <script>
+    function toggleReadMore() {
+      const dots = document.getElementById("dots");
+      const more = document.getElementById("more");
+      const btn = document.getElementById("myBtn");
+      if (dots.style.display === "none") {
+        dots.style.display = "inline";
+        more.style.display = "none";
+        btn.innerText = "Read more";
+      } else {
+        dots.style.display = "none";
+        more.style.display = "inline";
+        btn.innerText = "Read less";
+      }
+    }
+
+    function toggleSection(id) {
+      const el = document.getElementById(id);
+      el.style.display = (el.style.display === "none") ? "block" : "none";
+    }
+
+    function toggleTable(button) {
+      const table = document.getElementById("mytable");
+      table.style.display = (table.style.display === "none") ? "table" : "none";
+      button.innerText = (table.style.display === "none") ? "Show table" : "Hide table";
+    }
+
+    function getMovie() {
+      const title = document.getElementById("movieInput").value.trim();
+      const result = document.getElementById("movieResult");
+      if (!title) {
+        result.innerHTML = "Please enter a movie name.";
+        return;
+      }
+
+      const apiKey = `b559e3c8`; 
+      const url = `https://www.omdbapi.com/?t=${encodeURIComponent(title)}&apikey=${apiKey}`;
+
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          if (data.Response === "False") {
+            result.innerHTML = `❌ Movie not found: ${data.Error}`;
+          } else {
+            result.innerHTML = `
+              <h3>${data.Title} (${data.Year})</h3>
+              <img src="${data.Poster}" alt="Poster"><br>
+              <strong>Plot:</strong> ${data.Plot}<br>
+              <strong>Genre:</strong> ${data.Genre}<br>
+              <strong>Director:</strong> ${data.Director}<br>
+              <strong>IMDB Rating:</strong> ${data.imdbRating}<br>
+            `;
+          }
+        })
+        .catch(error => {
+          result.innerHTML = "Error fetching movie data.";
+          console.error("Fetch error:", error);
+        });
+    }
+  </script>
+
+</body>
+</html>
